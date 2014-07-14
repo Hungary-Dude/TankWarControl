@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="." destdir="doc" doctitle="PPCG Tank War" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" packagenames="zove.ppcg.tankwar.object,zove.ppcg.tankwar.test,zove.ppcg.tankwar" source="1.7" sourcepath="src" splitindex="true" use="true" version="true">
+            <link href="file:/C:/STUFF/eclipse_4.2.2/workspace/TankWarControl/doc/"/>
+            <link href="http://download.oracle.com/javase/7/docs/api/"/>
+        </javadoc>
+    </target>
+</project>
