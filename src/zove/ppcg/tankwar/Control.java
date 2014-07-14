@@ -133,9 +133,9 @@ public class Control {
 											tank.getPosition(),
 											tank.getPosition()
 													.cloneAndTranslate(
-															(float) (Battlefield.DIAGONAL_FIELD_SIZE * Math
+															(int) (Battlefield.DIAGONAL_FIELD_SIZE * Math
 																	.cos(turn.angle)),
-															(float) (Battlefield.DIAGONAL_FIELD_SIZE * Math
+															(int) (Battlefield.DIAGONAL_FIELD_SIZE * Math
 																	.sin(turn.angle))),
 											new MapPoint(2, 2), turn.hit });
 						}

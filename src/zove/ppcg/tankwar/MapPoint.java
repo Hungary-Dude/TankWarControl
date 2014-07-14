@@ -10,7 +10,7 @@ package zove.ppcg.tankwar;
  * @author Zove Games
  */
 public class MapPoint {
-	private float x, y;
+	private int x, y;
 
 	/**
 	 * Creates a new point
@@ -20,7 +20,7 @@ public class MapPoint {
 	 * @param y
 	 *            The y coordinate
 	 */
-	public MapPoint(float x, float y) {
+	public MapPoint(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
@@ -30,7 +30,7 @@ public class MapPoint {
 	 * 
 	 * @return The x-coordinate
 	 */
-	public float getX() {
+	public int getX() {
 		return x;
 	}
 
@@ -39,7 +39,7 @@ public class MapPoint {
 	 * 
 	 * @return The y-coordinate
 	 */
-	public float getY() {
+	public int getY() {
 		return y;
 	}
 
@@ -61,7 +61,7 @@ public class MapPoint {
 	 * @param deltaY The change in y
 	 * @return The cloned and translated point
 	 */
-	public MapPoint cloneAndTranslate(float deltaX, float deltaY){
+	public MapPoint cloneAndTranslate(int deltaX, int deltaY){
 		return new MapPoint(x+deltaX, y+deltaY);
 	}
 
