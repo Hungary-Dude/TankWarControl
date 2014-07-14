@@ -1,6 +1,6 @@
 TankWarControl
 ==============
 
-Control program and API for the PPCG challenge
+Control program and API for the PPCG challenge: http://codegolf.stackexchange.com/questions/34538/lets-have-a-tank-war
 
-<Link goes here>
+See http://hungary-dude.github.io/TankWarControl/doc for javadocs.
