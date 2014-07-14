@@ -96,7 +96,7 @@ public class Control {
 						.random() * field.emptyPoints.size()));
 				field.emptyPoints.remove(point);
 				TankObject obj = new TankObject(tank, point);
-				field.field[(int) point.getX()][(int) point.getY()] = obj;
+				field.field[point.getX()][point.getY()] = obj;
 
 				tankObjects.add(obj);
 				tank.onSpawn(field, point);

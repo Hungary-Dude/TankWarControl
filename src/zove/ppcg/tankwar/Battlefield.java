@@ -129,7 +129,7 @@ public class Battlefield {
 	 * @see FieldObjectType
 	 */
 	public FieldObjectType getObjectTypeAt(MapPoint point) {
-		return getObjectTypeAt((int) point.getX(), (int) point.getY());
+		return getObjectTypeAt(point.getX(), point.getY());
 	}
 
 	public String toString() {
