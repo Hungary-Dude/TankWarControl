@@ -82,7 +82,7 @@ public class Battlefield {
 		int newX = Math.round(newPosition.getX()), newY = Math
 				.round(newPosition.getY());
 		FieldObject obj = field[oldX][oldY];
-		if (field[newX][newY] == null) {
+		if (field[newX][newY] == null && obj != null) {
 			field[oldX][oldY] = null;
 			field[newX][newY] = obj;
 			obj.setPosition(newPosition);

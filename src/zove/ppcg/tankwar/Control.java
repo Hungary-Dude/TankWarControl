@@ -14,6 +14,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,7 +59,8 @@ public class Control {
 	 * Entry point
 	 * 
 	 * @param args
-	 * @throws Exception On rainy days
+	 * @throws Exception
+	 *             On rainy days
 	 */
 	public static void main(String[] args) throws Exception {
 		logger.setLevel(logLevel);
@@ -107,14 +109,9 @@ public class Control {
 
 			long startTime = System.currentTimeMillis();
 
-			while (tankObjects.size() > 1) {
-				List<TankObject> removeTankObjects = new ArrayList<>();
-				for (TankObject obj : tankObjects) {
-					if (obj.getHealth() < 0)
-						removeTankObjects.add(obj);
-				}
-				tankObjects.removeAll(removeTankObjects);
+			List<TankObject> deadTanks = new LinkedList<TankObject>();
 
+			while (tankObjects.size() > 1) {
 				if (System.currentTimeMillis() - startTime > 2000) {
 					// logger.info("\t" + tankObjects.size() + " tanks left");
 					startTime = System.currentTimeMillis();
@@ -145,14 +142,44 @@ public class Control {
 					panel.mapString = field.toString();
 					frame.repaint();
 				}
+
+				// see who died this iteration
+				// clear tanks from last iteration, so we know exactly who
+				// tied later
+				deadTanks.clear();
+				List<TankObject> removeTankObjects = new ArrayList<>();
+				for (TankObject obj : tankObjects) {
+					if (obj.getHealth() < 0) {
+						removeTankObjects.add(obj);
+						deadTanks.add(obj);
+					}
+				}
+				tankObjects.removeAll(removeTankObjects);
+
 				if (sleepTime > 0)
 					Thread.sleep(sleepTime);
 			}
-			Tank survivor = tankObjects.get(0).getTank();
-			tankObjects.remove(0);
-			logger.info(survivor.getName() + " survived!");
-			survivor.onDestroyed(field, true);
-			scores.put(survivor.getName(), scores.get(survivor.getName()) + 1);
+			if (tankObjects.size() > 0) {
+				// one winner
+				Tank survivor = tankObjects.get(0).getTank();
+				tankObjects.remove(0);
+				logger.info(survivor.getName() + " survived!");
+				survivor.onDestroyed(field, true);
+				scores.put(survivor.getName(),
+						scores.get(survivor.getName()) + 1);
+			} else if (deadTanks.size() >= 2) {
+				// simultaneous kills - it's a tie
+				logger.info("It's a tie between "
+						+ Arrays.toString(deadTanks.toArray()) + "!");
+				for(TankObject o: deadTanks){
+					scores.put(o.getTank().getName(),
+							scores.get(o.getTank().getName()) + 1);
+				}
+			} else {
+				// can only happen when there's only one tank
+				// I did say results are undefined
+			}
+
 			if (hasGui) {
 				synchronized (panel.shots) {
 					panel.shots.clear();

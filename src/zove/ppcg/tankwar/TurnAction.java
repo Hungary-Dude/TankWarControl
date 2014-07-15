@@ -169,7 +169,7 @@ public class TurnAction {
 	/**
 	 * Creates an action to shoot
 	 * 
-	 * @param angle
+	 * @param radians
 	 *            The angle to shoot at, in radians
 	 * @return The action
 	 */

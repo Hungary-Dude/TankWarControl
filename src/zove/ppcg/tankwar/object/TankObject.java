@@ -33,6 +33,10 @@ public class TankObject extends FieldObject {
 		} else return false;
 	}
 	
+	public String toString(){
+		return tank.getName();
+	}
+	
 	@Override
 	public FieldObjectType getType() {
 		return FieldObjectType.TANK;
