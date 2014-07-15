@@ -53,16 +53,19 @@ public class MapPoint {
 	public MapPoint clone() {
 		return new MapPoint(x, y);
 	}
-	
+
 	/**
 	 * Clones and translates this point.
+	 * 
 	 * @see #clone()
-	 * @param deltaX The change in x
-	 * @param deltaY The change in y
+	 * @param deltaX
+	 *            The change in x
+	 * @param deltaY
+	 *            The change in y
 	 * @return The cloned and translated point
 	 */
-	public MapPoint cloneAndTranslate(int deltaX, int deltaY){
-		return new MapPoint(x+deltaX, y+deltaY);
+	public MapPoint cloneAndTranslate(int deltaX, int deltaY) {
+		return new MapPoint(x + deltaX, y + deltaY);
 	}
 
 	public boolean equals(Object other) {
@@ -72,8 +75,43 @@ public class MapPoint {
 		} else
 			return false;
 	}
-	
-	public String toString(){
-		return "["+x+", "+y+"]";
+
+	public String toString() {
+		return "[" + x + ", " + y + "]";
+	}
+
+	/**
+	 * Returns the distance between this point and another
+	 * 
+	 * @param other
+	 *            The other point
+	 * @return The distance
+	 */
+	public double distanceTo(MapPoint other) {
+		int distX = x - other.x, distY = y - other.y;
+		return Math.sqrt(distX * distX + distY * distY);
+	}
+
+	/**
+	 * Returns the angle between this point and another point, in radians
+	 * 
+	 * @param other
+	 *            The other point
+	 * @return The angle in radians
+	 */
+	public double angleBetweenRadians(MapPoint other) {
+		int distX = other.x - x, distY = other.y - y;
+		return Math.atan2(distY, distX);
+	}
+
+	/**
+	 * Returns the angle between this point and another point, in degrees
+	 * 
+	 * @param other
+	 *            The other point
+	 * @return The angle in degrees
+	 */
+	public double angleBetween(MapPoint other) {
+		return Math.toDegrees(angleBetweenRadians(other));
 	}
 }

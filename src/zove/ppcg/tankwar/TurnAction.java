@@ -28,7 +28,7 @@ public class TurnAction {
 				return original.cloneAndTranslate(-numSteps, 0);
 			default:
 				// supress java error complaining about not returning anything
-				// This point will never be reach anyway
+				// This point will never be reached anyway
 				throw new IllegalStateException();
 			}
 		}
@@ -56,7 +56,7 @@ public class TurnAction {
 	}
 
 	protected ActionType type;
-	protected float angle;
+	protected double angle;
 	protected Direction direction;
 	protected int numSteps;
 	protected MapPoint hit;
@@ -69,7 +69,7 @@ public class TurnAction {
 	 * @param direction
 	 * @param numSteps
 	 */
-	private TurnAction(ActionType type, float angle, Direction direction,
+	private TurnAction(ActionType type, double angle, Direction direction,
 			int numSteps) {
 		this.type = type;
 		this.angle = angle;
@@ -157,12 +157,25 @@ public class TurnAction {
 	 * Creates an action to shoot
 	 * 
 	 * @param angle
-	 *            The angle to shoot at
+	 *            The angle to shoot at, in degrees
 	 * @return The action
 	 */
 	public static TurnAction createShootAction(float angle) {
 		angle += (Math.random() * 10) - 5;
-		return new TurnAction(ActionType.SHOOT, (float) Math.toRadians(angle),
+		return new TurnAction(ActionType.SHOOT, Math.toRadians(angle),
+				Direction.NORTH, 0);
+	}
+	
+	/**
+	 * Creates an action to shoot
+	 * 
+	 * @param angle
+	 *            The angle to shoot at, in radians
+	 * @return The action
+	 */
+	public static TurnAction createShootActionRadians(double radians){
+		radians += Math.toRadians((Math.random() * 10) - 5);
+		return new TurnAction(ActionType.SHOOT, radians,
 				Direction.NORTH, 0);
 	}
 

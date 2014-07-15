@@ -107,7 +107,8 @@ public class Battlefield {
 	 * @param y
 	 *            The y-coordinate
 	 * @return The {@link FieldObjectType} of the object
-	 * @throws IllegalArgumentException If coordinates are out of bounds of the map
+	 * @throws IllegalArgumentException
+	 *             If coordinates are out of bounds of the map
 	 * @see FieldObjectType
 	 */
 	public FieldObjectType getObjectTypeAt(int x, int y) {
@@ -130,6 +131,26 @@ public class Battlefield {
 	 */
 	public FieldObjectType getObjectTypeAt(MapPoint point) {
 		return getObjectTypeAt(point.getX(), point.getY());
+	}
+
+	/**
+	 * Returns a list of all {@link MapPoint}s of objects of the specified type
+	 * on the map
+	 * 
+	 * @param type
+	 *            The type to look for
+	 * @return The list of all objects
+	 */
+	public List<MapPoint> find(FieldObjectType type) {
+		List<MapPoint> ret = new ArrayList<>();
+		for (int i = 0; i < FIELD_SIZE; i++) {
+			for (int j = 0; j < FIELD_SIZE; j++) {
+				if (type == getObjectTypeAt(i, j)) {
+					ret.add(new MapPoint(i, j));
+				}
+			}
+		}
+		return ret;
 	}
 
 	public String toString() {
