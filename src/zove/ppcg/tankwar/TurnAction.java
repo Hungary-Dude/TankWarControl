@@ -80,19 +80,19 @@ public class TurnAction {
 	void takeAction(TankObject tank, Battlefield field) {
 		switch (type) {
 		case MOVE:
-			boolean done = false;
-			do {
-				MapPoint moved = direction.translate(tank.getPosition(),
-						numSteps);
-				if (moved.getX() >= 0 && moved.getX() < Battlefield.FIELD_SIZE
-						&& moved.getY() >= 0
-						&& moved.getY() < Battlefield.FIELD_SIZE
-						&& field.getObjectAt(moved) == null) {
-					done = true;
-					field.updateObjectPosition(tank.getPosition(), moved);
+			MapPoint moved = direction.translate(tank.getPosition(), 0);
+			for (int steps = 1; steps <= numSteps; steps++) {
+				MapPoint newPoint = direction.translate(tank.getPosition(),
+						steps);
+				if (newPoint.getX() >= 0 && newPoint.getY() >= 0
+						&& newPoint.getX() < Battlefield.FIELD_SIZE
+						&& newPoint.getY() < Battlefield.FIELD_SIZE
+						&& field.getObjectAt(newPoint) == null) {
+					moved = newPoint;
 				} else
-					numSteps--;
-			} while (!done && numSteps > 0);
+					break;
+			}
+			field.updateObjectPosition(tank.getPosition(), moved);
 			tank.getTank().turnFeedback(tank.getPosition(),
 					FieldObjectType.NOTHING);
 			break;
@@ -129,8 +129,7 @@ public class TurnAction {
 				if (hit.getHealth() < 0) {
 					field.removeObject(hit.getPosition());
 				}
-				tank.getTank().turnFeedback(tank.getPosition(),
-						hit.getType());
+				tank.getTank().turnFeedback(tank.getPosition(), hit.getType());
 			} else {
 				tank.getTank().turnFeedback(tank.getPosition(),
 						FieldObjectType.NOTHING);
@@ -165,7 +164,7 @@ public class TurnAction {
 		return new TurnAction(ActionType.SHOOT, Math.toRadians(angle),
 				Direction.NORTH, 0);
 	}
-	
+
 	/**
 	 * Creates an action to shoot
 	 * 
@@ -173,10 +172,9 @@ public class TurnAction {
 	 *            The angle to shoot at, in radians
 	 * @return The action
 	 */
-	public static TurnAction createShootActionRadians(double radians){
+	public static TurnAction createShootActionRadians(double radians) {
 		radians += Math.toRadians((Math.random() * 10) - 5);
-		return new TurnAction(ActionType.SHOOT, radians,
-				Direction.NORTH, 0);
+		return new TurnAction(ActionType.SHOOT, radians, Direction.NORTH, 0);
 	}
 
 	/**

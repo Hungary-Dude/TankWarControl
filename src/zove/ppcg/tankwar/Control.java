@@ -137,6 +137,8 @@ public class Control {
 											new MapPoint(2, 2), turn.hit });
 						}
 					}
+					if (tank.getHealth() < 100)
+						tank.setHealth(tank.getHealth() + 1);
 				}
 				if (hasGui) {
 					panel.mapString = field.toString();
@@ -171,7 +173,7 @@ public class Control {
 				// simultaneous kills - it's a tie
 				logger.info("It's a tie between "
 						+ Arrays.toString(deadTanks.toArray()) + "!");
-				for(TankObject o: deadTanks){
+				for (TankObject o : deadTanks) {
 					scores.put(o.getTank().getName(),
 							scores.get(o.getTank().getName()) + 1);
 				}
